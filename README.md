@@ -1,4 +1,4 @@
-randutil  [![GoDoc](https://godoc.org/github.com/hnakamur/randutil?status.png)]
+randutil  ![GoDoc](https://godoc.org/github.com/hnakamur/randutil?status.png)
 ========
 
 This is a Go package for providing some utilities for random.
