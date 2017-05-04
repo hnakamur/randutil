@@ -29,13 +29,15 @@ func ExampleNewCryptoIntner() {
 	}
 }
 
-func ExampleChooser_Choose() {
+func ExampleNewChooser() {
 	c, err := randutil.NewChooser(
 		randutil.NewCryptoIntner(),
 		[]randutil.Choice{
+			// This is a cheated coin that possibility of tail is twice of head.
 			{Weight: 1, Item: "head"},
 			{Weight: 2, Item: "tail"},
-		})
+		},
+	)
 	if err != nil {
 		panic(err)
 	}

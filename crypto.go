@@ -5,13 +5,14 @@ import (
 	"math/big"
 )
 
-type CryptoIntner struct{}
+type cryptoIntner struct{}
 
+// NewCryptoIntner returns a new Intner using crypto/rand.
 func NewCryptoIntner() Intner {
-	return new(CryptoIntner)
+	return new(cryptoIntner)
 }
 
-func (i *CryptoIntner) Intn(n int) (int, error) {
+func (i *cryptoIntner) Intn(n int) (int, error) {
 	v, err := rand.Int(rand.Reader, big.NewInt(int64(n)))
 	if err != nil {
 		return 0, err
