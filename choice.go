@@ -1,6 +1,10 @@
 package randutil
 
-import "github.com/pkg/errors"
+import (
+	"fmt"
+
+	"errors"
+)
 
 // Choice represents an item to be choosed. It has a weight which affects possibility to be choosed.
 type Choice struct {
@@ -42,7 +46,7 @@ func NewChooser(intner Intner, choices []Choice) (*Chooser, error) {
 func (c *Chooser) Choose() (interface{}, error) {
 	v, err := c.intner.Intn(c.totalWeight)
 	if err != nil {
-		return nil, errors.Wrap(err, "failed to get random int for chooser")
+		return nil, fmt.Errorf("failed to get random int for chooser, err=%v", err)
 	}
 	for _, choice := range c.choices {
 		if v < int(choice.Weight) {
