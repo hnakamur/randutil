@@ -8,7 +8,7 @@ import (
 
 func BenchmarkRandomID(b *testing.B) {
 	for i := 0; i < b.N; i++ {
-		_, err := randutil.RandomID()
+		_, err := randutil.RandomID(nil)
 		if err != nil {
 			b.Fatal(err)
 		}
