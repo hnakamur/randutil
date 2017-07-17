@@ -18,6 +18,17 @@ func ExampleNewMathIntner() {
 	}
 }
 
+func ExampleNewXorShift1024StarIntner() {
+	intner := randutil.NewXorShift1024StarIntner(uint64(time.Now().UnixNano()))
+	for i := 0; i < 10; i++ {
+		v, err := intner.Intn(6)
+		if err != nil {
+			panic(err)
+		}
+		fmt.Printf("dice was %d\n", v+1)
+	}
+}
+
 func ExampleNewCryptoIntner() {
 	intner := randutil.NewCryptoIntner()
 	for i := 0; i < 10; i++ {
