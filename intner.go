@@ -4,8 +4,8 @@ package randutil
 //
 // Intn returns, as an int, a non-negative pseudo-random number in [0,n). It panics if n <= 0.
 //
-// Uint64 returns a pseudo-random 64-bit value as a uint64.
+// Int63n returns, as an int64, a non-negative pseudo-random number in [0,n) from the default Source. It panics if n <= 0.
 type Intner interface {
 	Intn(n int) (int, error)
-	Uint64() (uint64, error)
+	Int63n(n int64) (int64, error)
 }

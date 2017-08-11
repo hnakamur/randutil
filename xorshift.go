@@ -25,6 +25,6 @@ func (i *xorShiftIntner) Intn(n int) (int, error) {
 	return int(i.rand.Next() % uint64(n)), nil
 }
 
-func (i *xorShiftIntner) Uint64() (uint64, error) {
-	return i.rand.Next(), nil
+func (i *xorShiftIntner) Int63n(n int64) (int64, error) {
+	return int64(i.rand.Next() % uint64(n)), nil
 }

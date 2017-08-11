@@ -16,6 +16,6 @@ func (i *mathIntner) Intn(n int) (int, error) {
 	return i.rand.Intn(n), nil
 }
 
-func (i *mathIntner) Uint64() (uint64, error) {
-	return i.rand.Uint64(), nil
+func (i *mathIntner) Int63n(n int64) (int64, error) {
+	return i.rand.Int63n(n), nil
 }
