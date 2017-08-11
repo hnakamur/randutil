@@ -2,7 +2,7 @@
 // Use of this source code is governed by a BSD-style
 // license that can be found in the LICENSE file.
 
-package rand
+package randutil
 
 import (
 	"math"
@@ -35,32 +35,49 @@ func absInt32(i int32) uint32 {
 //
 //  sample = NormFloat64() * desiredStdDev + desiredMean
 //
-func (r *Rand) NormFloat64() float64 {
+func NormFloat64(intner Intner) (float64, error) {
+	// This code was copied from https://github.com/golang/go/blob/c007ce824d9a4fccb148f9204e04c23ed2984b71/src/math/rand/normal.go
 	for {
-		j := int32(r.Uint32()) // Possibly negative
+		u, err := intner.Intn(math.MaxUint32)
+		if err != nil {
+			return 0, err
+		}
+		j := int32(u) // Possibly negative
 		i := j & 0x7F
 		x := float64(j) * float64(wn[i])
 		if absInt32(j) < kn[i] {
 			// This case should be hit better than 99% of the time.
-			return x
+			return x, nil
 		}
 
 		if i == 0 {
 			// This extra work is only required for the base strip.
 			for {
-				x = -math.Log(r.Float64()) * (1.0 / rn)
-				y := -math.Log(r.Float64())
+				xf, err := Float64(intner)
+				if err != nil {
+					return 0, err
+				}
+				yf, err := Float64(intner)
+				if err != nil {
+					return 0, err
+				}
+				x = -math.Log(xf) * (1.0 / rn)
+				y := -math.Log(yf)
 				if y+y >= x*x {
 					break
 				}
 			}
 			if j > 0 {
-				return rn + x
+				return rn + x, nil
 			}
-			return -rn - x
+			return -rn - x, nil
 		}
-		if fn[i]+float32(r.Float64())*(fn[i-1]-fn[i]) < float32(math.Exp(-.5*x*x)) {
-			return x
+		f, err := Float64(intner)
+		if err != nil {
+			return 0, err
+		}
+		if fn[i]+float32(f)*(fn[i-1]-fn[i]) < float32(math.Exp(-.5*x*x)) {
+			return x, nil
 		}
 	}
 }
