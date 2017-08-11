@@ -24,3 +24,7 @@ func NewXorShift1024StarIntner(seed uint64) Intner {
 func (i *xorShiftIntner) Intn(n int) (int, error) {
 	return int(i.rand.Next() % uint64(n)), nil
 }
+
+func (i *xorShiftIntner) Uint64() (uint64, error) {
+	return i.rand.Next(), nil
+}

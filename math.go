@@ -15,3 +15,7 @@ func NewMathIntner(seed int64) Intner {
 func (i *mathIntner) Intn(n int) (int, error) {
 	return i.rand.Intn(n), nil
 }
+
+func (i *mathIntner) Uint64() (uint64, error) {
+	return i.rand.Uint64(), nil
+}

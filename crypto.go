@@ -4,6 +4,7 @@ import (
 	"crypto/rand"
 	"encoding/binary"
 	"errors"
+	"math"
 	"math/big"
 )
 
@@ -20,6 +21,16 @@ func (i *cryptoIntner) Intn(n int) (int, error) {
 		return 0, err
 	}
 	return int(v.Int64()), nil
+}
+
+func (i *cryptoIntner) Uint64() (uint64, error) {
+	var u big.Int
+	u.SetUint64(math.MaxUint64)
+	v, err := rand.Int(rand.Reader, &u)
+	if err != nil {
+		return 0, err
+	}
+	return v.Uint64(), nil
 }
 
 // RandomSeed returns a random seed using the cryptographically
