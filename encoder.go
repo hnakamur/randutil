@@ -3,6 +3,7 @@ package randutil
 import (
 	"errors"
 	"math"
+	"unsafe"
 )
 
 // Encoder generates random values and encodes them in the specified digit characters.
@@ -56,5 +57,7 @@ func (e *Encoder) RandomString(length int) (string, error) {
 	if err != nil {
 		return "", err
 	}
-	return string(buf), nil
+	// Convert byte buffer to string without an extra allocation, in the same way as
+	// https://github.com/golang/go/blob/go1.10beta1/src/strings/builder.go#L22
+	return *(*string)(unsafe.Pointer(&buf)), nil
 }
