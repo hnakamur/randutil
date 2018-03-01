@@ -1,6 +1,8 @@
 package randutil
 
 import (
+	"fmt"
+	"math"
 	"math/rand"
 	"os"
 	"strconv"
@@ -10,6 +12,24 @@ import (
 const (
 	testCount = 100
 )
+
+func TestBatchSize(t *testing.T) {
+	batchSize := 0
+	m := uint64(math.MaxUint64)
+	n := int64(1)
+	for {
+		m2 := m / digitCount
+		if m2 == 0 {
+			break
+		}
+
+		n *= digitCount
+		batchSize++
+
+		m = m2
+	}
+	fmt.Printf("batchSize=%d, n=%d\n", batchSize, n)
+}
 
 func TestRandDigit95OneByOne(t *testing.T) {
 	r := rand.New(rand.NewSource(seed))

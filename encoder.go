@@ -24,10 +24,19 @@ func NewEncoder(intner Intner, digits []byte) (*Encoder, error) {
 		return nil, errors.New("too many digits")
 	}
 
-	batchSize := int(math.Log2(math.MaxUint64) / math.Log2(float64(l)))
+	m := int64(math.MaxInt64)
 	n := int64(1)
-	for j := 0; j < batchSize; j++ {
+	batchSize := 0
+	for {
+		m2 := m / l
+		if m2 == 0 {
+			break
+		}
+
 		n *= l
+		batchSize++
+
+		m = m2
 	}
 	return &Encoder{
 		intner:    intner,
