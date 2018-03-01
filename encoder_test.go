@@ -1,6 +1,7 @@
 package randutil_test
 
 import (
+	"fmt"
 	"strings"
 	"testing"
 	"time"
@@ -23,6 +24,7 @@ func TestEncoder_RandomString(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
+		fmt.Printf("s=%s\n", s)
 		if len(s) != length {
 			t.Errorf("unexpected length, got=%d, want=%d", len(s), length)
 		}
