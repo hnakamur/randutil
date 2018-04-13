@@ -1,13 +1,16 @@
-randutil  [![GoDoc](https://godoc.org/github.com/hnakamur/randutil?status.png)](https://godoc.org/github.com/hnakamur/randutil)
-========
+randutil/v2  [![GoDoc](https://godoc.org/github.com/hnakamur/randutil?status.png)](https://godoc.org/github.com/hnakamur/randutil/v2)
+===============
 
 This is a Go package for providing some utilities for random.
 
-This Package randutil provides a utility function to get non-negative
-pesudo-random int using math/rand or crypto/rand.
+Package randutil/v2 provides a utility function to produce
+random integer, float, bytes, and texts.
+This package is meant for generating random inputs to be
+used for tests or simulations.
+It does NOT provide crypto level randomness.
 
-This package also provides Chooser which chooses an item from choices.
-Each choice has a weight which affects possibility for it to be choosed.
+The randutil/v2 drops Intner using crypto/rand and PCG.
+It also drops Chooser.
 
 ## License
 
