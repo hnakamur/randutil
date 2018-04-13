@@ -1,4 +1,4 @@
-package randutil
+package v2
 
 import (
 	"errors"
@@ -47,7 +47,7 @@ func NewEncoder(intner Intner, digits []byte) (*Encoder, error) {
 }
 
 // Bytes writes random encoded bytes to the passed buffer.
-func (e *Encoder) RandomBytes(buf []byte) error {
+func (e *Encoder) RandomBytes(buf []byte) {
 	// This implementation is inspired by math/rand.rand()
 	// https://github.com/golang/go/blob/go1.9.3/src/math/rand/rand.go#L215-L230
 	pos := 0
@@ -56,26 +56,18 @@ func (e *Encoder) RandomBytes(buf []byte) error {
 	n := e.n
 	for i := 0; i < len(buf); i++ {
 		if pos == 0 {
-			var err error
-			val, err = e.intner.Int63n(n)
-			if err != nil {
-				return err
-			}
+			val = e.intner.Int63n(n)
 			pos = e.batchSize - 1
 		}
 		buf[i] = e.digits[val%l]
 		val /= l
 		pos--
 	}
-	return nil
 }
 
 // String returns a random encoded string of the specified length.
-func (e *Encoder) RandomString(length int) (string, error) {
+func (e *Encoder) RandomString(length int) string {
 	buf := make([]byte, length)
-	err := e.RandomBytes(buf)
-	if err != nil {
-		return "", err
-	}
-	return string(buf), nil
+	e.RandomBytes(buf)
+	return string(buf)
 }
