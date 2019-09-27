@@ -1,3 +1,5 @@
+[DEPRECATED] Use [golang.org/x/exp/rand#PCGSource](https://godoc.org/golang.org/x/exp/rand#PCGSource) and [gonum.org/v1/gonum/stat/distuv](https://godoc.org/gonum.org/v1/gonum/stat/distuv) instead.
+
 randutil  [![GoDoc](https://godoc.org/github.com/hnakamur/randutil?status.png)](https://godoc.org/github.com/hnakamur/randutil)
 ========
 
