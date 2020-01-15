@@ -15,8 +15,37 @@ func MultiIntnNoDup(src rand.Source, m, n int) []int {
 	if m > n {
 		panic("m must be less than or equal to n")
 	}
+
+	a := make([]int, n)
+	for i := 0; i < n; i++ {
+		a[i] = i
+	}
+
 	rnd := rand.New(src)
-	var ret []int
+	ret := make([]int, 0, m)
+	for i := 0; i < m; i++ {
+		r := rnd.Intn(n)
+		v := a[r]
+		ret = append(ret, v)
+
+		// a = append(a[:r], a[r+1:]...)
+		a = a[:r+copy(a[r:], a[r+1:])]
+		n--
+	}
+	return ret
+}
+
+// multiIntnNoDup returns m multiple random integers
+// of range [0, n) without duplication.
+func multiIntnNoDupByRanges(src rand.Source, m, n int) []int {
+	if src == nil {
+		panic("src must not be nil")
+	}
+	if m > n {
+		panic("m must be less than or equal to n")
+	}
+	rnd := rand.New(src)
+	ret := make([]int, 0, m)
 	ranges := intRanges{{start: 0, stop: n}}
 	for i := 0; i < m; i++ {
 		r := rnd.Intn(n)
